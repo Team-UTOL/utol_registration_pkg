@@ -10,7 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  # Riverpods
+  flutter_riverpod: ^2.4.8
+  riverpod_annotation: ^2.3.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
