@@ -10,10 +10,10 @@ class MFileForm extends ConsumerWidget {
   final String widgetName;
 
   // Widgets
-  final Future<void> Function(BuildContext, Size, WidgetRef, File)
+  final Future<void> Function(BuildContext, Size, WidgetRef, File?)
       showDocImageDialog;
 
-  final Future<void> Function(BuildContext, Size, WidgetRef, File)
+  final Future<void> Function(BuildContext, Size, WidgetRef, String?)
       showDocImageGettedDialog;
 
   // Data
@@ -41,11 +41,11 @@ class MFileForm extends ConsumerWidget {
   final isDocuFileAlreadyPostedProvider;
 
   // Path file
-  final File fileImgToPost;
-  final File fileImgToPatch;
+  final File? fileImgToPost;
+  final File? fileImgToPatch;
 
   // Function
-  final Function selectFile;
+  final Future<void> selectFile;
   const MFileForm({
     super.key,
     // Name File
@@ -182,7 +182,7 @@ class MFileForm extends ConsumerWidget {
                         ? () async {
                             // Check if File  is to post
                             if (isFileToPost == true) {
-                              selectFile();
+                              selectFile;
                             }
                             // Check if File is alreadyh posted
                             else if (isFileAlreadyPosted == true) {
@@ -213,7 +213,7 @@ class MFileForm extends ConsumerWidget {
                                   .read(isDocuFileViewableProvider.notifier)
                                   .isValue(false);
                             } else {
-                              selectFile();
+                              selectFile;
                             }
                           }
                         : null,
