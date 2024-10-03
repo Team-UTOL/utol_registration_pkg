@@ -39,9 +39,9 @@ class MFileForm extends ConsumerWidget {
   final Size screenSize;
 
   // Providers
-  final isDocuFileToUploadProvider;
-  final isDocuFileViewableProvider;
-  final isDocuFileAlreadyPostedProvider;
+  final void Function(bool) isDocuFileToUploadProvider;
+  final void Function(bool) isDocuFileViewableProvider;
+  final void Function(bool) isDocuFileAlreadyPostedProvider;
 
   // Path file
   final File? fileImgToPost;
@@ -195,13 +195,13 @@ class MFileForm extends ConsumerWidget {
                               fileCtrlr.clear();
 
                               // set upload to true
-                              isDocuFileToUploadProvider.isValue(true);
+                              isDocuFileToUploadProvider(true);
 
                               // set viewable to false
-                              isDocuFileViewableProvider.isValue(false);
+                              isDocuFileViewableProvider(false);
 
                               // set is already posted to false
-                              isDocuFileAlreadyPostedProvider.isValue(false);
+                              isDocuFileAlreadyPostedProvider(false);
                             }
                             // Check if File  is to upload
                             else if (isFileToUpload == false) {
@@ -209,14 +209,10 @@ class MFileForm extends ConsumerWidget {
                               fileCtrlr.clear();
 
                               // set upload to true
-                              ref
-                                  .read(isDocuFileToUploadProvider.notifier)
-                                  .isValue(true);
+                              isDocuFileToUploadProvider(true);
 
                               // set viewable to false
-                              ref
-                                  .read(isDocuFileViewableProvider.notifier)
-                                  .isValue(false);
+                              isDocuFileViewableProvider(false);
                             } else {
                               selectFile();
                             }
