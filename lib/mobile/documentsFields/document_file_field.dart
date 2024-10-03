@@ -187,7 +187,7 @@ class MFileForm extends ConsumerWidget {
                         ? () async {
                             // Check if File  is to post
                             if (isFileToPost == true) {
-                              selectFile;
+                              selectFile();
                             }
                             // Check if File is alreadyh posted
                             else if (isFileAlreadyPosted == true) {
@@ -218,7 +218,7 @@ class MFileForm extends ConsumerWidget {
                                   .read(isDocuFileViewableProvider.notifier)
                                   .isValue(false);
                             } else {
-                              selectFile;
+                              selectFile();
                             }
                           }
                         : null,
