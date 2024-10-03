@@ -48,7 +48,7 @@ class MFileForm extends ConsumerWidget {
   final File? fileImgToPatch;
 
   // Function
-  final Future<void> selectFile;
+  final Future<void> Function() selectFile;
   const MFileForm({
     super.key,
     // Name File
