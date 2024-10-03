@@ -195,13 +195,13 @@ class MFileForm extends ConsumerWidget {
                               fileCtrlr.clear();
 
                               // set upload to true
-                              isDocuFileToUploadProvider.isValue(true);
+                              isDocuFileToUploadProvider?.isValue(true);
 
                               // set viewable to false
-                              isDocuFileViewableProvider.isValue(true);
+                              isDocuFileViewableProvider?.isValue(true);
 
                               // set is already posted to false
-                              isDocuFileAlreadyPostedProvider.isValue(false);
+                              isDocuFileAlreadyPostedProvider?.isValue(false);
                             }
                             // Check if File  is to upload
                             else if (isFileToUpload == false) {
@@ -211,12 +211,12 @@ class MFileForm extends ConsumerWidget {
                               // set upload to true
                               ref
                                   .read(isDocuFileToUploadProvider.notifier)
-                                  .isValue(true);
+                                  ?.isValue(true);
 
                               // set viewable to false
                               ref
                                   .read(isDocuFileViewableProvider.notifier)
-                                  .isValue(false);
+                                  ?.isValue(false);
                             } else {
                               selectFile();
                             }
