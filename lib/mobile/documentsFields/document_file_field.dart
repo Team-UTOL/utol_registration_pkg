@@ -20,7 +20,10 @@ class MFileForm extends ConsumerWidget {
   final file;
 
   // Libraries
-  final color_constants;
+  final Color colorMaintext;
+  final Color colorMainFieldColor;
+  final Color colorSubtext;
+  final Color colorPrimary;
 
   // Controllers
   final TextEditingController fileCtrlr;
@@ -57,8 +60,10 @@ class MFileForm extends ConsumerWidget {
     // Data
     required this.file,
     // Libraries
-    required this.color_constants,
-
+    required this.colorMaintext,
+    required this.colorMainFieldColor,
+    required this.colorSubtext,
+    required this.colorPrimary,
     // Controllers
     required this.fileCtrlr,
 
@@ -104,18 +109,18 @@ class MFileForm extends ConsumerWidget {
 
           // Decorations
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                color: color_constants?.mainText,
+                color: colorMaintext,
                 fontSize: 12,
               ),
           decoration: InputDecoration(
             fillColor: isFileVerified == false
-                ? color_constants?.mainFieldColor
+                ? colorMainFieldColor
                 : const Color(0xFFCCCCCC),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             hintText: "${widgetName} ",
             hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  color: color_constants?.subText,
+                  color: colorSubtext,
                   fontSize: 12,
                 ),
             suffixIcon: Padding(
@@ -160,7 +165,7 @@ class MFileForm extends ConsumerWidget {
                       'View',
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
                             color: isFileViewable == true
-                                ? color_constants.primary
+                                ? colorPrimary
                                 : Colors.grey,
                             fontWeight: FontWeight.bold,
                             fontSize: 12,
@@ -172,7 +177,7 @@ class MFileForm extends ConsumerWidget {
                   Container(
                     height: 30,
                     width: 1,
-                    color: color_constants.mainText,
+                    color: colorMaintext,
                     margin: const EdgeInsets.only(left: 10, right: 8),
                   ),
 
@@ -231,7 +236,7 @@ class MFileForm extends ConsumerWidget {
                             child: Icon(
                               Icons.close,
                               size: 18,
-                              color: color_constants.mainText,
+                              color: colorMaintext,
                             ),
                           ),
                   ),
