@@ -1,41 +1,86 @@
 library registration_pkg;
 
-import 'dart:ffi';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class MAuthForm extends ConsumerWidget {
+class MFileForm extends ConsumerWidget {
+  // Name File
+  final String widgetName;
+
   // Widgets
+  final Future<void> Function(BuildContext, Size, WidgetRef, File)
+      showDocImageDialog;
+
+  final Future<void> Function(BuildContext, Size, WidgetRef, File)
+      showDocImageGettedDialog;
+
+  // Data
+  final file;
 
   // Libraries
   final color_constants;
 
   // Controllers
-  final TextEditingController authCtrlr;
+  final TextEditingController fileCtrlr;
 
   // Booleans
-  final isAuthVerified;
-  final isAuthViewable;
-  final isAuthToPost;
+  final isFileVerified;
+  final isFileViewable;
+  final isFileToPost;
+  final isFileAlreadyPosted;
+  final isFileToUpload;
 
-  const MAuthForm({
+  // Variables
+  final Size screenSize;
+
+  // Providers
+  final isDocuFileToUploadProvider;
+  final isDocuFileViewableProvider;
+  final isDocuFileAlreadyPostedProvider;
+
+  // Path file
+  final File fileImgToPost;
+  final File fileImgToPatch;
+
+  // Function
+  final Function selectFile;
+  const MFileForm({
     super.key,
-
+    // Name File
+    required this.widgetName,
     // Widgets
+    required this.showDocImageDialog,
+    required this.showDocImageGettedDialog,
 
+    // Data
+    required this.file,
     // Libraries
     required this.color_constants,
 
     // Controllers
-    required this.authCtrlr,
+    required this.fileCtrlr,
 
     // Boleans
-    required this.isAuthVerified,
-    required this.isAuthViewable,
-    required this.isAuthToPost,
+    required this.isFileVerified,
+    required this.isFileViewable,
+    required this.isFileToPost,
+    required this.isFileAlreadyPosted,
+    required this.isFileToUpload,
+
+    // Variables
+    required this.screenSize,
+
+    // Providers
+    required this.isDocuFileToUploadProvider,
+    required this.isDocuFileViewableProvider,
+    required this.isDocuFileAlreadyPostedProvider,
+    // Path file
+    required this.fileImgToPost,
+    required this.fileImgToPatch,
+    // Function
+    required this.selectFile,
   });
 
   @override
@@ -44,14 +89,14 @@ class MAuthForm extends ConsumerWidget {
     return Expanded(
       child: SizedBox(
         child: TextFormField(
-          controller: authCtrlr,
+          controller: fileCtrlr,
           obscureText: false,
           readOnly: true,
 
           // validation
           validator: (value) {
             if (value!.isEmpty) {
-              return 'Please prvoide Authorization Letter ';
+              return 'Please prvoide ${widgetName} ';
             }
 
             return null;
@@ -63,12 +108,12 @@ class MAuthForm extends ConsumerWidget {
                 fontSize: 12,
               ),
           decoration: InputDecoration(
-            fillColor: isAuthVerified == false
+            fillColor: isFileVerified == false
                 ? color_constants?.mainFieldColor
                 : const Color(0xFFCCCCCC),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-            hintText: "Authorization Letter ",
+            hintText: "${widgetName} ",
             hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
                   color: color_constants?.subText,
                   fontSize: 12,
@@ -81,32 +126,32 @@ class MAuthForm extends ConsumerWidget {
                 children: [
                   // View Icon
                   InkWell(
-                    onTap: isAuthViewable == true
+                    onTap: isFileViewable == true
                         ? () async {
-                            // Check if Authorization Letter  is to post
-                            if (isAuthToPost == true) {
+                            // Check if File  is to post
+                            if (isFileToPost == true) {
                               showDocImageDialog(
-                                  context, screenSize, ref, authImgToPost);
+                                  context, screenSize, ref, fileImgToPost);
                             }
-                            // Check if Authorization Letter is already posted
-                            else if (isAuthAlreadyPosted == true) {
+                            // Check if File is already posted
+                            else if (isFileAlreadyPosted == true) {
                               showDocImageGettedDialog(
                                 context,
                                 screenSize,
                                 ref,
-                                auth.data!.fileName,
+                                file.data!.fileName,
                               );
                             }
-                            // Check if Authorization Letter  is to upload
-                            else if (isAuthToUpload == true) {
+                            // Check if File  is to upload
+                            else if (isFileToUpload == true) {
                               showDocImageDialog(
-                                  context, screenSize, ref, authImgToPatch);
+                                  context, screenSize, ref, fileImgToPatch);
                             } else {
                               showDocImageGettedDialog(
                                 context,
                                 screenSize,
                                 ref,
-                                auth.data!.fileName,
+                                file.data!.fileName,
                               );
                             }
                           }
@@ -114,7 +159,7 @@ class MAuthForm extends ConsumerWidget {
                     child: Text(
                       'View',
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                            color: isAuthViewable == true
+                            color: isFileViewable == true
                                 ? color_constants.primary
                                 : Colors.grey,
                             fontWeight: FontWeight.bold,
@@ -133,53 +178,46 @@ class MAuthForm extends ConsumerWidget {
 
                   // Clear / Gallery icon
                   InkWell(
-                    onTap: isAuthVerified == false
+                    onTap: isFileVerified == false
                         ? () async {
-                            // Check if Authorization Letter  is to post
-                            if (isAuthToPost == true) {
-                              selectAuthFile();
+                            // Check if File  is to post
+                            if (isFileToPost == true) {
+                              selectFile();
                             }
-                            // Check if Authorizataion Letter is alreadyh posted
-                            else if (isAuthAlreadyPosted == true) {
+                            // Check if File is alreadyh posted
+                            else if (isFileAlreadyPosted == true) {
                               // set text to empty
-                              authCtrlr.clear();
+                              fileCtrlr.clear();
 
                               // set upload to true
-                              ref
-                                  .read(isDocuAuthToUploadProvider.notifier)
-                                  .isValue(true);
+                              isDocuFileToUploadProvider.isValue(true);
 
                               // set viewable to false
-                              ref
-                                  .read(isDocuAuthViewableProvider.notifier)
-                                  .isValue(false);
+                              isDocuFileViewableProvider.isValue(true);
 
                               // set is already posted to false
-                              ref
-                                  .read(
-                                      isDocuAuthAlreadyPostedProvider.notifier)
-                                  .isValue(false);
+                              isDocuFileAlreadyPostedProvider.isValue(false);
                             }
-                            // Check if Authorization Letter  is to upload
-                            else if (isAuthToUpload == false) {
+                            // Check if File  is to upload
+                            else if (isFileToUpload == false) {
                               // set text to empty
-                              authCtrlr.clear();
+                              fileCtrlr.clear();
 
                               // set upload to true
                               ref
-                                  .read(isDocuAuthToUploadProvider.notifier)
+                                  .read(isDocuFileToUploadProvider.notifier)
                                   .isValue(true);
 
                               // set viewable to false
                               ref
-                                  .read(isDocuAuthViewableProvider.notifier)
+                                  .read(isDocuFileViewableProvider.notifier)
                                   .isValue(false);
                             } else {
-                              selectAuthFile();
+                              selectFile();
                             }
                           }
                         : null,
-                    child: isAuthToPost == true || isAuthToUpload == true
+                    child: isFileToPost == true || isFileToUpload == true
                         ? Padding(
                             padding: const EdgeInsets.only(right: 2),
                             child: Icon(
@@ -188,8 +226,8 @@ class MAuthForm extends ConsumerWidget {
                               color: Colors.blueAccent.withOpacity(0.9),
                             ),
                           )
-                        : const Padding(
-                            padding: EdgeInsets.only(right: 2),
+                        : Padding(
+                            padding: const EdgeInsets.only(right: 2),
                             child: Icon(
                               Icons.close,
                               size: 18,
