@@ -2,6 +2,8 @@
 
 #### **Driver Registration Package** is a package designed to minimize code redundancy in the app and help maintain code cleanliness.
 
+## Note*
+#### This is only for Driver Registration For Website, Driver and Passenger Application
 
 ## Usage
 
