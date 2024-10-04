@@ -6,7 +6,7 @@
 ## Usage
 
 #### Copy the url link
-![image](https://github.com/user-attachments/assets/f3acfd3c-a5ea-488b-81f1-b54596e2367f)
+![image](https://github.com/user-attachments/assets/7e657147-2ffe-4877-9d0a-adc607d12e01)
 ##
 
 #### pubsec.yaml
