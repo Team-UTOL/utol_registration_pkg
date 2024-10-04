@@ -4,3 +4,18 @@
 
 
 ## Usage
+
+#### pubsec.yaml
+#### Add registration package under dependencies.
+````dart
+
+  dependencies:
+  flutter:
+    sdk: flutter
+  # Driver Registration Package
+  registration_pkg:
+    git: https://github.com/Team-UTOL/utol_registration_pkg.git
+
+````
+
+
