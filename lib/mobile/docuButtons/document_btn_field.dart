@@ -35,6 +35,7 @@ class MFileButton extends ConsumerWidget {
   final isFileToPost;
   final isFileAlreadyPosted;
   final isFileToUpload;
+  final isAuthToPatch;
 
   // Variables
   final Size screenSize;
@@ -49,6 +50,10 @@ class MFileButton extends ConsumerWidget {
       driverApplicationPatchControllerProvider;
   final void Function(String, String, String)
       driverApplicationPostControllerProvider;
+  final void Function(dynamic) invalidateProvider;
+  final void Function(dynamic) getDocumentFileProvider;
+  final void Function(dynamic) fetchDocumentFileProvider;
+
   // Path file
   final File? fileImgToPost;
   final File? fileImgToPatch;
@@ -62,6 +67,8 @@ class MFileButton extends ConsumerWidget {
   final Future<void> Function(BuildContext) showUtolLoadingDialog;
   final Future<void> Function(BuildContext, Size, WidgetRef, String)
       showDocUpdateSuccess;
+  final Future<void> Function(BuildContext, Size, WidgetRef, String)
+      showDocSavedSuccess;
   // ========================================== BUTTON ===================================== //
   const MFileButton({
     super.key,
@@ -91,6 +98,7 @@ class MFileButton extends ConsumerWidget {
     required this.isFileToPost,
     required this.isFileAlreadyPosted,
     required this.isFileToUpload,
+    required this.isAuthToPatch,
 
     // Variables
     required this.screenSize,
@@ -99,9 +107,13 @@ class MFileButton extends ConsumerWidget {
     required this.isDocuFileToUploadProvider,
     required this.isDocuFileViewableProvider,
     required this.isDocuFileAlreadyPostedProvider,
+    required this.isDocuFileToPostProvider,
+    required this.isDocuFileToPatchProvider,
     required this.driverApplicationPatchControllerProvider,
     required this.driverApplicationPostControllerProvider,
-    required this.isDocuFileToPatchProvider,
+    required this.invalidateProvider,
+    required this.getDocumentFileProvider,
+    required this.fetchDocumentFileProvider,
     // Path file
     required this.fileImgToPost,
     required this.fileImgToPatch,
@@ -113,6 +125,7 @@ class MFileButton extends ConsumerWidget {
     // Dialogs
     required this.showUtolLoadingDialog,
     required this.showDocUpdateSuccess,
+    required this.showDocSavedSuccess,
   });
 
   @override
@@ -160,16 +173,19 @@ class MFileButton extends ConsumerWidget {
                     isDocuFileToUploadProvider(false);
 
                     // set istopatch to true
-                    ref.read(isDocuFileToPatchProvider.notifier).isValue(true);
+                    isDocuFileToPatchProvider(true);
 
                     // fetch the document
-                    ref.invalidate(getDocumentFileProvider);
-                    ref.read(getDocumentFileProvider(fileKey: fileName));
-
+                    invalidateProvider(getDocumentFileProvider);
+                    fetchDocumentFileProvider(fileName);
                     if (Navigator.of(context).mounted) {
                       Navigator.of(context).pop(true);
                       showDocSavedSuccess(
-                          context, screenSize, ref, '${widgetName}');
+                        context,
+                        screenSize,
+                        ref,
+                        widgetName,
+                      );
                     }
                   }
 
@@ -182,16 +198,13 @@ class MFileButton extends ConsumerWidget {
                     );
 
                     // set to upload to false
-                    ref
-                        .read(isDocuFileToUploadProvider.notifier)
-                        .isValue(false);
+                    isDocuFileToUploadProvider(false);
 
                     // fetch the document
-                    ref.invalidate(getDocumentFileProvider);
-                    ref.read(getDocumentFileProvider(fileKey: fileName));
-
-                    if (context.mounted) {
-                      context.pop(true);
+                    invalidateProvider(getDocumentFileProvider);
+                    fetchDocumentFileProvider(fileName);
+                    if (Navigator.of(context).mounted) {
+                      Navigator.of(context).pop(true);
                       showDocUpdateSuccess(
                           context, screenSize, ref, 'authorization letter');
                     }
@@ -202,8 +215,7 @@ class MFileButton extends ConsumerWidget {
         child: Container(
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-            color:
-                isAuthToUpload == true ? color_constants.primary : Colors.grey,
+            color: isFileToUpload == true ? colorPrimary : Colors.grey,
             borderRadius: BorderRadius.circular(12),
           ),
           child: const Icon(
