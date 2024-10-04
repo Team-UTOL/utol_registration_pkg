@@ -10,11 +10,11 @@
 ````dart
 
   dependencies:
-  flutter:
-    sdk: flutter
-  # Driver Registration Package
-  registration_pkg:
-    git: https://github.com/Team-UTOL/utol_registration_pkg.git
+    flutter:
+      sdk: flutter
+    # Driver Registration Package
+    registration_pkg:
+      git: https://github.com/Team-UTOL/utol_registration_pkg.git
 
 ````
 
