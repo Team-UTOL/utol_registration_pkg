@@ -11,27 +11,16 @@ class MFileButton extends ConsumerWidget {
   final String widgetName;
   final String fileName;
   // Widgets
-  final Future<void> Function(BuildContext, Size, WidgetRef, File?)
-      showDocImageDialog;
-
-  final Future<void> Function(BuildContext, Size, WidgetRef, String?)
-      showDocImageGettedDialog;
 
   // Data
   final file;
 
   // Libraries
-  final Color colorMaintext;
-  final Color colorMainFieldColor;
-  final Color colorSubtext;
   final Color colorPrimary;
 
   // Controllers
-  final TextEditingController fileCtrlr;
   final String authCtrlr;
   // Booleans
-  final isFileVerified;
-  final isFileViewable;
   final isFileToPost;
   final isFileAlreadyPosted;
   final isFileToUpload;
@@ -42,7 +31,6 @@ class MFileButton extends ConsumerWidget {
 
   // Providers
   final void Function(bool) isDocuFileToUploadProvider;
-  final void Function(bool) isDocuFileViewableProvider;
   final void Function(bool) isDocuFileAlreadyPostedProvider;
   final void Function(bool) isDocuFileToPostProvider;
   final void Function(bool) isDocuFileToPatchProvider;
@@ -55,13 +43,9 @@ class MFileButton extends ConsumerWidget {
   final void Function(dynamic) fetchDocumentFileProvider;
 
   // Path file
-  final File? fileImgToPost;
-  final File? fileImgToPatch;
   // Path String
   final String authStringToPatch;
   final String authStringToPost;
-  // Function
-  final Future<void> Function() selectFile;
 
   // Dialogs
   final Future<void> Function(BuildContext) showUtolLoadingDialog;
@@ -78,23 +62,14 @@ class MFileButton extends ConsumerWidget {
     // Name File
     required this.widgetName,
     required this.fileName,
-    // Widgets
-    required this.showDocImageDialog,
-    required this.showDocImageGettedDialog,
 
     // Data
     required this.file,
     // Libraries
-    required this.colorMaintext,
-    required this.colorMainFieldColor,
-    required this.colorSubtext,
     required this.colorPrimary,
     // Controllers
-    required this.fileCtrlr,
     required this.authCtrlr,
     // Boleans
-    required this.isFileVerified,
-    required this.isFileViewable,
     required this.isFileToPost,
     required this.isFileAlreadyPosted,
     required this.isFileToUpload,
@@ -105,7 +80,6 @@ class MFileButton extends ConsumerWidget {
 
     // Providers
     required this.isDocuFileToUploadProvider,
-    required this.isDocuFileViewableProvider,
     required this.isDocuFileAlreadyPostedProvider,
     required this.isDocuFileToPostProvider,
     required this.isDocuFileToPatchProvider,
@@ -114,14 +88,9 @@ class MFileButton extends ConsumerWidget {
     required this.invalidateProvider,
     required this.getDocumentFileProvider,
     required this.fetchDocumentFileProvider,
-    // Path file
-    required this.fileImgToPost,
-    required this.fileImgToPatch,
     // Path String
     required this.authStringToPatch,
     required this.authStringToPost,
-    // Function
-    required this.selectFile,
     // Dialogs
     required this.showUtolLoadingDialog,
     required this.showDocUpdateSuccess,
@@ -206,7 +175,7 @@ class MFileButton extends ConsumerWidget {
                     if (Navigator.of(context).mounted) {
                       Navigator.of(context).pop(true);
                       showDocUpdateSuccess(
-                          context, screenSize, ref, 'authorization letter');
+                          context, screenSize, ref, widgetName);
                     }
                   }
                 }
