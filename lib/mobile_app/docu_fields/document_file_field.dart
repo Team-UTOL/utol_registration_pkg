@@ -10,7 +10,7 @@ class MFileForm extends ConsumerWidget {
   final String widgetName;
 
   // Widgets
-  final Future<void> Function(BuildContext, Size, WidgetRef, File?)
+  final Future<void> Function(BuildContext, Size, WidgetRef, List<int>?)
       showDocImageDialog;
 
   final Future<void> Function(BuildContext, Size, WidgetRef, String?)
@@ -44,8 +44,8 @@ class MFileForm extends ConsumerWidget {
   final void Function(bool) isDocuFileAlreadyPostedProvider;
 
   // Path file
-  final File? fileImgToPost;
-  final File? fileImgToPatch;
+  final List<int>? fileImgToPost;
+  final List<int>? fileImgToPatch;
 
   // Function
   final Future<void> Function() selectFile;
