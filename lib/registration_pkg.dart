@@ -3,9 +3,9 @@ library registration_pkg;
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  final onPressed;
+  final dynamic onPressed;
   final Widget child;
-  final style;
+  final dynamic style;
 
   const CustomButton({
     super.key,

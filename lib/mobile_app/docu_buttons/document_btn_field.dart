@@ -1,6 +1,5 @@
 library registration_pkg;
 
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,7 +12,7 @@ class MFileButton extends ConsumerWidget {
   // Widgets
 
   // Data
-  final file;
+  final dynamic file;
 
   // Libraries
   final Color colorPrimary;
@@ -21,10 +20,10 @@ class MFileButton extends ConsumerWidget {
   // Controllers
   final String authCtrlr;
   // Booleans
-  final isFileToPost;
-  final isFileAlreadyPosted;
-  final isFileToUpload;
-  final isAuthToPatch;
+  final bool isFileToPost;
+  final bool isFileAlreadyPosted;
+  final bool isFileToUpload;
+  final bool isAuthToPatch;
 
   // Variables
   final Size screenSize;

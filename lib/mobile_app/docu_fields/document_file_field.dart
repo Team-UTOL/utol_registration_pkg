@@ -17,7 +17,7 @@ class MFileForm extends ConsumerWidget {
       showDocImageGettedDialog;
 
   // Data
-  final file;
+  final dynamic file;
 
   // Libraries
   final Color colorMaintext;
@@ -29,11 +29,11 @@ class MFileForm extends ConsumerWidget {
   final TextEditingController fileCtrlr;
 
   // Booleans
-  final isFileVerified;
-  final isFileViewable;
-  final isFileToPost;
-  final isFileAlreadyPosted;
-  final isFileToUpload;
+  final bool isFileVerified;
+  final bool isFileViewable;
+  final bool isFileToPost;
+  final bool isFileAlreadyPosted;
+  final bool isFileToUpload;
 
   // Variables
   final Size screenSize;
@@ -101,7 +101,7 @@ class MFileForm extends ConsumerWidget {
           // validation
           validator: (value) {
             if (value!.isEmpty) {
-              return 'Please prvoide ${widgetName} ';
+              return 'Please prvoide $widgetName ';
             }
 
             return null;
