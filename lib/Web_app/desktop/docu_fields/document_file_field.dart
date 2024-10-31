@@ -21,9 +21,6 @@ class WebDFileForm extends ConsumerWidget {
 
   // Libraries Color
   final Color colorMaintext;
-  final Color colorMainFieldColor;
-  final Color colorSubtext;
-  final Color colorPrimary;
   final Color colorStatLGrey;
 
   // Controllers
@@ -62,9 +59,6 @@ class WebDFileForm extends ConsumerWidget {
     required this.file,
     // Libraries Color
     required this.colorMaintext,
-    required this.colorMainFieldColor,
-    required this.colorSubtext,
-    required this.colorPrimary,
     required this.colorStatLGrey,
     // Controllers
     required this.fileCtrlr,
